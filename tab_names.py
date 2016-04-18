@@ -30,7 +30,7 @@ def main():
 			with open("charisa_output.txt","w")	as f:
 				json.dump(getMediaTime(page, total), f) 
 				
-		time.sleep(3)	
+		#time.sleep(3)	
 			
 def get_status(driver):
     try:
