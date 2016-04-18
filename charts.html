@@ -1,0 +1,71 @@
+<html>
+<head>
+<style>
+#over{
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    background-color: #6ED7FA;
+    color: black;
+    font-weight: 600;
+    -webkit-box-shadow: none;
+  	-moz-box-shadow: none;
+  	box-shadow: none;
+    border: none;
+    font-size: 14px;
+    padding: 8px 5px 8px 5px;
+    border-bottom: 5px solid #1D7896;
+    z-index: 10;
+}
+
+iframe{
+    position: absolute;;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    border: none;
+}
+</style>
+<script>
+var refreshFirstFrame = true;
+var paused = false;
+var interval = window.setInterval("reloadIFrame();", 2000);
+
+function stopRefreshing() {
+  if(paused) {
+    document.getElementById("over").innerHTML = "Pause";
+    clearInterval(interval);
+    interval = window.setInterval("reloadIFrame();", 2000);
+  } else {
+    document.getElementById("over").innerHTML = "Resume";
+    clearInterval(interval);
+  }
+  document.getElementById("over")
+  paused = !paused;
+}
+
+function reloadIFrame() {
+ if(refreshFirstFrame) {
+    // Refresh the other frame so we can display it instantly next time
+    document.getElementById("chartFrameTwo").src ="pyChartWithTable.html";
+    document.getElementById("chartFrame").hidden = false;
+    document.getElementById("chartFrameTwo").hidden = true;
+ } else {
+   document.getElementById("chartFrame").src ="pyChartWithTable.html";
+   document.getElementById("chartFrameTwo").hidden = false;
+   document.getElementById("chartFrame").hidden = true;
+ }
+
+ refreshFirstFrame = !refreshFirstFrame;
+}
+</script>
+</head>
+<body>
+<div>
+<button id="over" onclick="stopRefreshing();">Pause</button>
+<iframe id="chartFrame" src="pyChartWithTable.html">iFrame support needed</iframe>
+<iframe id="chartFrameTwo" src="pyChartWithTable.html"></iframe>
+</div>
+</body>
+</html>
